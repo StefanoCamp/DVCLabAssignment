@@ -1,0 +1,41 @@
+stages:
+  prepare:
+    cmd: python src/prepare.py data/
+    deps:
+    - data/test
+    - data/train
+    - src/prepare.py
+    outs:
+    - data/prepared
+  training:
+    cmd: python src/training.py data/prepared/
+    params:
+    - LSTM.n_hidden
+    - LSTM.n_classes
+    - training.learning_rate
+    - training.lambda_loss_amount
+    - training.training_iters_loop
+    - training.batch_size
+    - training.display_iter
+    deps:
+    - src/training.py
+    - data/prepared
+    outs:
+    - data/pred
+  metrics:
+    cmd: python src/metrics.py data/pred/ data/prepared/
+    deps:
+    - src/metrics.py
+    - data/pred
+    - data/prepared
+    outs:
+    - data/results
+  plot:
+    cmd: python src/plot.py data/results/
+    params:
+    - LSTM.n_classes
+    deps:
+    - src/plot.py
+    - data/results
+    outs:
+    - data/plots
