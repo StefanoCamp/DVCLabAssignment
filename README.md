@@ -94,3 +94,4 @@ to see the pipeline.
 
 ![Pipeline](Pipeline.PNG)
  
+This work was done in windows with python 3.8
