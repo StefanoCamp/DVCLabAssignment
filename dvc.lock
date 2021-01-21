@@ -1,0 +1,80 @@
+prepare:
+  cmd: python src/prepare.py data/
+  deps:
+  - path: data/test
+    md5: 7b80f6261e0e350fa27a2596710ff8ea.dir
+    size: 80844144
+    nfiles: 12
+  - path: data/train
+    md5: d4cc31a497ff6147f1bd6d165fdb8617.dir
+    size: 201685512
+    nfiles: 12
+  - path: src/prepare.py
+    md5: 4bfa3732fb54519b2810d447a2498f10
+    size: 2509
+  outs:
+  - path: data/prepared
+    md5: 18daa0df93b780791c6475f0b87d091f.dir
+    size: 424979121
+    nfiles: 4
+training:
+  cmd: python src/training.py data/prepared/
+  deps:
+  - path: data/prepared
+    md5: 18daa0df93b780791c6475f0b87d091f.dir
+    size: 424979121
+    nfiles: 4
+  - path: src/training.py
+    md5: fa62e58ad9a423e09bc06eb8b1179454
+    size: 8409
+  params:
+    params.yaml:
+      LSTM.n_classes: 6
+      LSTM.n_hidden: 32
+      training.batch_size: 1500
+      training.display_iter: 30000
+      training.lambda_loss_amount: 0.0015
+      training.learning_rate: 0.0025
+      training.training_iters_loop: 10
+  outs:
+  - path: data/pred
+    md5: 2aaf30d09f29e312b51df73ab8aa0b10.dir
+    size: 532670
+    nfiles: 2
+metrics:
+  cmd: python src/metrics.py data/pred/ data/prepared/
+  deps:
+  - path: data/pred
+    md5: 2aaf30d09f29e312b51df73ab8aa0b10.dir
+    size: 532670
+    nfiles: 2
+  - path: data/prepared
+    md5: 18daa0df93b780791c6475f0b87d091f.dir
+    size: 424979121
+    nfiles: 4
+  - path: src/metrics.py
+    md5: 9a4ced56ce08aa044fea415d2d91e0e8
+    size: 2074
+  outs:
+  - path: data/results
+    md5: 343a856cbec319c45887dacf710fbfb5.dir
+    size: 1415
+    nfiles: 2
+plot:
+  cmd: python src/plot.py data/results/
+  deps:
+  - path: data/results
+    md5: 343a856cbec319c45887dacf710fbfb5.dir
+    size: 1415
+    nfiles: 2
+  - path: src/plot.py
+    md5: 144507ffdd72ee5bda636fa1a686ab4f
+    size: 1368
+  params:
+    params.yaml:
+      LSTM.n_classes: 6
+  outs:
+  - path: data/plots
+    md5: 85360f897f5b7196dd27f53cd8166760.dir
+    size: 50190
+    nfiles: 1
