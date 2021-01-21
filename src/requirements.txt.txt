@@ -1,0 +1,4 @@
+tensorflow
+sklearn
+matplotlib
+pyaml

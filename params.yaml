@@ -1,0 +1,10 @@
+LSTM:
+  n_hidden: 32
+  n_classes: 6
+
+training:
+  learning_rate: 0.0025
+  lambda_loss_amount: 0.0015
+  training_iters_loop: 10
+  batch_size: 1500
+  display_iter: 30000
