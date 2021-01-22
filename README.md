@@ -44,7 +44,7 @@ To reproduce the Pipeline follow this steps:
  `cd DVCLabAssignment`
 
 ### Step 5:
-   -Create a Python virtual environment
+   -Create a Python virtual environment (This work was done in windows with python 3.8)
  
  `python -m venv virtualenv`
 
@@ -93,5 +93,4 @@ You can modify the parameters from the params.yaml file. Moreover, you can use t
 to see the pipeline.
 
 ![Pipeline](Pipeline.PNG)
- 
-This work was done in windows with python 3.8
+
